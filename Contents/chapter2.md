@@ -1,0 +1,842 @@
+# Asserters #
+
+## variable ##
+
+This is the base asserter for variables, it includes the basics assertions you may need while testing values of any type.
+
+### isEqualTo ###
+
+isEqualTo verify that the tested variable is equal to a given value.
+    [php]
+    $a = 'a';
+
+    $this->assert
+            ->variable($a)
+               ->isEqualTo('a');//Will pass
+
+    isEqualTo won't verify the type of the variables, only the value itself.
+
+    $a1 = '1';
+
+    $a2 = 1;
+
+
+    $this->assert
+            ->variable($a1)
+               ->isEqualTo($a2); //Will pass
+
+Note
+
+while testing values of different types with isEqualTo, variables are compared like the == operator in PHP.
+
+If you to verify both types and values, use the isIdenticalTo assertion instead.
+
+### isNotEqualTo ###
+
+isNotEqualTo verify that the tested variable is different from a given value.
+
+    [php]
+    $a = 'a';
+
+    $this->assert
+            ->variable($a)
+               ->isNotEqualTo('a');//Will fail
+
+    $this->assert
+            ->variable($a)
+               ->isNotEqualTo('b');//Will pass
+
+    As isEqualTo, isNotEqualTo won't check the type of the variables.
+
+    $a1 = '1';
+
+    $this->assert
+            ->variable($a1)
+               ->isNotEqualTo(1);//Will fail
+
+### isIdenticalTo ###
+
+isIdenticalTo verify that the tested variables are the same (types and values). In case you are testing objects, isIdenticalTo will tell if both variables represents the same instance.
+
+    $a1 = '1';
+
+    $this->assert
+            ->variable($a1)
+               ->isIdenticalTo(1); //Will fail
+
+    $stdClass    = new StdClass();
+    $stdClass2   = new StdClass();
+    $stdClassRef = $stdClass;
+
+    $this->assert
+            ->variable($stdClass)
+               ->isIdenticalTo(stdClass2); //Will fail
+
+    $this->assert
+            ->variable($stdClass)
+               ->isIdenticalTo(stdClassRef); //Will pass
+
+If you don't want to consider the types of the variable, use isEqualTo.
+
+### isNotIdenticalTo ###
+
+isNotIdenticalTo verify that the tested variables are not the same (types or values). In case you are testing objects, isNotIdenticalTo will assert that the tested variables points to different instances.
+
+    [php]
+    $a1 = '1';
+
+    $this->assert
+            ->variable($a1)
+               ->isNotIdenticalTo(1); //Will Pass ($a1 is a string, does not match an integer)
+
+    $stdClass    = new StdClass();
+    $stdClass2   = new StdClass();
+    $stdClassRef = $stdClass;
+
+    $this->assert
+            ->variable($stdClass)
+               ->isNotIdenticalTo(stdClass2); //Will fail, variables do not point to the same instance, even if their values are the same
+
+    $this->assert
+            ->variable($stdClass)
+               ->isNotIdenticalTo(stdClassRef); //Will fail, both variables points to the same instance of StdClass
+
+If you don't want to consider the types of the variables, use isNotEqualTo.
+
+### isNull ###
+
+isNull verify that the variable is null.
+
+    [php]
+    $a1 = '';
+    $this->assert
+            ->variable($a1)
+               ->isNull(); //Will Fail ($a1 is empty but not null)
+
+    $a2 = null;
+    $this->assert
+            ->variable($a2)
+               ->isNull(); //Will Pass
+
+### isNotNull ###
+
+isNotNull verify taht the variable is not null.
+
+    [php]
+    $a1 = '';
+    $this->assert
+            ->variable($a1)
+               ->isNotNull(); //Will pass ($a1 is empty but not null)
+
+### isReferenceTo ###
+
+## integer ##
+
+This is the asserter dedicated to integer testing. It extends the variable asserter : You can use every assertions in the variable asserter while testing integers.
+
+If you try to test a variable that is not an integer with the integer asserter, it will raise a failure.
+
+    [php]
+    $a1 = '1';
+
+    $this->assert
+            ->integer($a1) //Will fail, a1 is not an integer, event if it represents one
+
+Note
+
+null is not considered as a valid integer. You can check PHP's is_int function to check what is considered an integer.
+
+### isZero ###
+
+isZero verify that the tested variable is equal to 0.
+
+    [php]
+    $zero = 0;
+    $minusOne = -1;
+
+    $this->assert
+            ->integer($zero)
+               ->isZero(); // Will pass
+
+    $this->assert
+            ->integer($minusOne)
+               ->isZero(); // Will fail
+
+### isLessThan ###
+
+isLessThan verify that the tested integer is strictly less than a given integer.
+
+    [php]
+    $zero = 0;
+
+    $this->assert
+            ->integer($zero)
+               ->isLessThan(10); // Will pass
+
+    $this->assert
+            ->integer($zero)
+               ->isLessThan('10'); // Will fail, you have to pass an actual integer to isLessThan
+
+    $this->assert
+            ->integer($zero)
+               ->isLessThan(0); // Will fail, 0 is equal to 0
+
+Note
+
+values given to isLessThan must be actual integers.
+
+### isGreaterThan ###
+
+isGreaterThan verify that the tested integer is strictly greater than a given integer.
+
+    [php]
+    $zero = 0;
+
+    $this->assert
+            ->integer($zero)
+               ->isGreaterThan(-1); // Will pass
+
+    $this->assert
+            ->integer($zero)
+               ->isGreaterThan('-1'); // Will fail, you have to pass an actual integer to isGreaterThan
+
+    $this->assert
+            ->integer($zero)
+               ->isGreaterThan(0); // Will fail, 0 is equal to 0
+
+
+Note
+
+values given to isGreaterThan must be actual integers.
+
+### isLessThanOrEqualTo ###
+
+isLessThanOrEqualTo verify that the tested integer is less or equal to a given integer.
+
+    [php]
+    $zero = 0;
+
+    $this->assert
+            ->integer($zero)
+               ->isLessThanOrEqualTo(10); // Will pass
+
+    $this->assert
+            ->integer($zero)
+               ->isLessThanOrEqualTo('10'); // Will fail, you have to pass an actual integer to isLessThanOrEqualTo
+
+    $this->assert
+            ->integer($zero)
+               ->isLessThanOrEqualTo(0); // Will pass
+
+Note
+
+values given to isLessThanOrEqualTo must be actual integers.
+
+### isGreaterThanOrEqualTo ###
+
+isGreaterThanOrEqualTo verify that the tested integer is greater or equal to a given integer.
+
+    [php]
+    $zero = 0;
+
+    $this->assert
+            ->integer($zero)
+               ->isGreaterThanOrEqualTo(-1); // Will pass
+
+    $this->assert
+            ->integer($zero)
+               ->isGreaterThanOrEqualTo('-1'); // Will fail, you have to pass an actual integer to isGreaterThanOrEqualTo
+
+    $this->assert
+            ->integer($zero)
+               ->isGreaterThanOrEqualTo(0); // Will pass
+
+
+Note
+
+values given to isGreaterThanOrEqualTo must be actual integers.
+
+## float ##
+
+This is the asserter dedicated to floating values testing.
+
+It extends the integer asserter making it possible to test floating point values.
+
+You can use every assertions that are present in the integer asserter.
+Note
+
+Of course, while testing float values, assertions that expected integers will expect float values (isGreaterThan, isGreaterOrEqualTo, isLessThan, isLessThanOrEqualTo)
+
+## boolean ##
+
+This is the asserter dedicated to boolean testing.
+
+It extends the variable asserter.
+
+### isTrue ###
+
+isTrue verify that the tested boolean is true (strictly equals to false).
+
+    [php]
+    $boolean = false;
+    $boolean2 = true;
+
+    $this->assert
+            ->boolean($boolean)
+               ->isTrue(); // Will fail
+
+    $this->assert
+            ->boolean($boolean2)
+               ->isTrue(); // Will pass
+
+### isFalse ###
+
+isFalse verify that the tested boolean is false (strictly equals to false).
+
+    [php]
+    $boolean = false;
+    $boolean2 = true;
+
+    $this->assert
+           ->boolean($boolean)
+              ->isFalse(); // Will pass
+
+    $this->assert
+           ->boolean($boolean2)
+              ->isFalse(); // Will fail
+
+## string ##
+
+This is the asserter dedicated to string testing.
+
+It extends the variable asserter : You can use every assertions of the variable asserter while testing a string.
+
+### isEmpty ###
+
+isEmpty verify that the string is empty (no characters)
+
+    [php]
+    $emptyString = '';
+    $nonEmptyString = ' ';
+
+    $this->assert
+            ->string($emptyString)
+                ->isEmpty();//Will pass
+    $this->assert
+            ->string($nonEmptyString)
+                ->isEmpty();//Will fail
+
+### isNotEmpty ###
+
+isNotEmpty verify that the string is not empty (contains some characters)
+
+    [php]
+    $emptyString = '';
+    $nonEmptyString = ' ';
+
+    $this->assert
+            ->string($emptyString)
+                ->isNotEmpty();//Will fail
+    $this->assert
+            ->string($nonEmptyString)
+                ->isNotEmpty();//Will pass
+
+### match ###
+
+match will try to verify that the string matches a given regular expression.
+
+    [php]
+    $polite = 'Hello the world';
+    $rude   = 'yeah... the world ';
+
+    $this->assert
+            ->string($polite)
+                ->match();//will pass
+
+    $this->assert
+            ->string($rude)
+                ->match();//will fail
+
+### hasLength ###
+
+hasLength will verify that the string has a given length.
+
+    [php]
+    $string = 'Hello the world';
+
+    $this->assert
+            ->string($string)
+                ->hasLength(15);//Will pass
+
+    $this->assert
+            ->string($string)
+                ->hasLength(16);//Will fail
+
+## dateTime ##
+
+This is the asserter dedicated to DateTime testing.
+
+It extends from the variable asserter : You can use every assertions of the variable asserter while testing a DateTime object.
+
+### hasTimezone ###
+
+### isInYear ###
+
+### isInMonth ###
+
+### isInDay ###
+
+### hasDate ###
+
+## phpArray / array ##
+
+This is the asserter dedicated to array testing.
+
+It extends from the variable asserter : You can use every assertions of the variable asserter while testing arrays.
+
+### hasSize ###
+
+hasSize will verify that the tested array has a given number of element (non recursive).
+
+    [php]
+    $array = array(1, 2, 3, 7);
+    $this->assert
+            ->array($array)
+            ->hasSize(4);//will pass
+
+    $this->assert
+            ->array($array)
+            ->hasSize(7);//Will fail
+
+### isEmpty ###
+
+isEmpty will verify that the array is empty (does not contains any value)
+
+    [php]
+    $emptyArray = array();
+    $nonEmptyArray = array(null, null);
+
+    $this->assert
+            ->array($emptyArray)
+            ->isEmpty();//will pass
+
+    $this->assert
+            ->array($nonEmptyArray)
+            ->isEmpty();//will fail
+
+### isNotEmpty ###
+
+isEmpty will verify that the array is not empty (contains at least one value of any kind)
+
+    [php]
+    $emptyArray = array();
+    $nonEmptyArray = array(null, null);
+
+    $this->assert
+            ->array($emptyArray)
+            ->isNotEmpty();//will fail
+
+    $this->assert
+            ->array($nonEmptyArray)
+            ->isNotEmpty();//will pass
+
+### contains ###
+
+contains will verify that the tested array directly contains a given value (will not search for the value recursively).
+contains will not test the type of the value.
+
+If you want to test both the type and the value, you will use strictlyContains.
+
+    [php]
+    $arrayWithNull = array(null);
+    $arrayWithEmptyString = array('', 1);
+    $arrayWithArrayWithNull = array(array(null));
+    $arrayWithString1 = array('1', 2, 3);
+
+    $this->assert
+            ->array($arrayWithNull)
+                ->contains(null);//will pass
+            ->array($arrayWithEmptyString)
+                ->contains(null)//will pass (null == '')
+            ->array($arrayWithArrayWithNull)
+                ->contains(null);//will fail, does not search recursively
+            ->array($arrayWithString1)
+                ->contains(1);//will pass, does not match the type
+
+### notContains ###
+
+notContains will verify that the tested array does not contains a given value (will not search for the value recursively).
+notContains will not test the type of the value.
+
+If you want to test both the type and the value, you will use strictlyNotContains.
+
+    [php]
+    $arrayWithNull = array(null);
+    $arrayWithEmptyString = array('', 1);
+    $arrayWithArrayWithNull = array(array(null));
+    $arrayWithString1 = array('1', 2, 3);
+
+    $this->assert
+            ->array($arrayWithNull)
+                ->notContains(null);//will fail
+            ->array($arrayWithEmptyString)
+                ->notContains(null)//will fail (null == '')
+            ->array($arrayWithArrayWithNull)
+                ->notContains(null);//will pass, does not search recursively
+            ->array($arrayWithString1)
+                ->notContains(1);//will fail, 1 == '1'
+
+### containsValues ###
+
+containsValues will verify that the tested array does contains some values (given in an array)
+containsValues will not test the type of the values to look for.
+
+If you want to test both the types and the values, you will use strictlyContainsValues.
+
+    [php]
+    $arrayWithString1And2And3 = array('1', 2, 3);
+
+    $this->assert
+            ->array($arrayWithString1And2And3)
+                ->containsValues(array(1, 2, 3))//will pass
+                ->containsValues(array('1', '2', '3'))//will pass
+                ->containsValues(array('1, 2, 3));//will pass
+
+### notContainsValues ###
+
+notContainsValues will verify that the tested array does not contains any value of a given array
+notContainsValues will not test the type of the values to look for.
+
+If you want to test both the types and the values, you will use strictlyNotContainsValues.
+
+    [php]
+    $arrayWithString1And2And3 = array('1', 2, 3);
+
+    $this->assert
+            ->array($arrayWithString1And2And3)
+                ->notContainsValues(array(1, 4, 5))//will faill as '1' is in the tested array
+                ->notContainsValues(array(4, 6, '2'))//will fail as 2 is in the tested array
+                ->notContainsValues(array('1', 2, 3))//will fail as all the values are in the tested array
+                ->notContainsValues(array(4, 5, 6));//will pass as none of the values are in the tested array
+
+### strictlyContainsValues ###
+
+strictlyContainsValues will verify that the tested array contains all the values of a given array
+stricltyContainsValues will test the type of the values to look for.
+
+If you do not want to test both the types and the values, you will use containsValues.
+
+    [php]
+    $arrayWithString1And2And3 = array('1', 2, 3);
+
+    $this->assert
+            ->array($arrayWithString1And2And3)
+                ->notContainsValues(array(1, 2, 3))//will faill as '1' is in the tested array, not 1
+                ->notContainsValues(array('3', '2', '1'))//will fail as '3' and '2' are not in the tested array, but 2 and 3 are
+                ->notContainsValues(array(2, '1', 3));//will pass as all the values are in the tested array
+
+### strictlyNotContainsValues ###
+
+strictlyNotContainsValues will verify that the tested array does not contains any value of a given array
+strictlyNotContainsValues will test the type of the values to look for.
+
+If you do not want to test both the types and the values, you will use notContainsValues.
+
+    [php]
+    $arrayWithString1And2And3 = array('1', 2, 3);
+
+    $this->assert
+            ->array($arrayWithString1And2And3)
+                ->notContainsValues(array(1, 4, 5))//will pass as none of the values are in the tested array (1 !== '1')
+                ->notContainsValues(array(4, 6, '2'))//will pass as none of the values are in the tested array (2 !== '2')
+                ->notContainsValues(array('1', 2, 3))//will fail as all of the values are in the tested array
+                ->notContainsValues(array(4, 5, 6));//will pass as none of the values are in the tested array
+
+### strictlyContains ###
+
+contains will verify that the tested array directly contains a given value (will not search for the value recursively).
+contains will test the type of the value.
+
+If you do not want to test both the type and the value, you will use contains.
+
+    [php]
+    $arrayWithNull = array(null);
+    $arrayWithEmptyString = array('', 1);
+    $arrayWithArrayWithNull = array(array(null));
+    $arrayWithString1 = array('1', 2, 3);
+
+    $this->assert
+            ->array($arrayWithNull)
+                ->strictlyContains(null)//will pass
+            ->array($arrayWithEmptyString)
+                ->strictlyContains(null)//will fail (null !== '')
+            ->array($arrayWithArrayWithNull)
+                ->strictlyContains(null)//will fail, does not search recursively
+            ->array($arrayWithString1)
+                ->strictlyContains(1)//will fail, 1 !== '1'
+            ->array($arrayWithString1)
+                ->strictlyContains('1');//Will pass
+
+### strictlyNotContains ###
+
+strictlyNotContains will verify that the tested array does not contains a given value (will not search for the value recursively).
+strictlyNotContains will test the type of the value.
+
+If you do not want to test both the type and the value, you will use notContains.
+
+    [php]
+    $arrayWithNull = array(null);
+    $arrayWithEmptyString = array('', 1);
+    $arrayWithArrayWithNull = array(array(null));
+    $arrayWithString1 = array('1', 2, 3);
+
+    $this->assert
+            ->array($arrayWithNull)
+                ->strictlyNotContains(null)//will fail
+            ->array($arrayWithEmptyString)
+                ->strictlyNotContains(null)//will pass (null !== '')
+            ->array($arrayWithArrayWithNull)
+                ->strictlyNotContains(null)//will pass, does not search recursively
+            ->array($arrayWithString1)
+                ->strictlyNotContains(1);//will pass, 1 !== '1'
+
+### hasKey ###
+
+hasKey will verify that the given array has a given key
+
+    [php]
+    $array  = array(2, 4, 6);
+    $array2 = array("2"=>1, "3"=>2, "4"=>3);
+
+    $this->assert
+            ->array($array1)
+                ->hasKey(1)//will pass
+                ->hasKey(2)//will pass
+                ->hasKey('1')//will pass, keys are "casted", and $array[1] do exists
+                ->hasKey(5);//will fail
+    $this->assert
+            ->array($array2)
+                ->hasKey(2)//will pass
+                ->hasKey("3")//will pass
+                ->hasKey(0);//will fail
+
+### notHasKey ###
+
+notHasKey will verify that the given array does not have a given key
+
+    [php]
+    $array  = array(2, 4, 6);
+    $array2 = array("2"=>1, "3"=>2, "3"=>3);
+
+    $this->assert
+            ->array($array1)
+                ->notHasKey(1)//will fail
+                ->notHasKey(2)//will fail
+                ->notHasKey('1')//will fail, keys are "casted", and $array[1] do exists
+                ->notHasKey(5);//will pass
+    $this->assert
+            ->array($array2)
+                ->notHasKey(2)//will fail
+                ->notHasKey("3")//will fail
+                ->notHasKey(0);//will pass
+
+### hasKeys ###
+
+hasKeys will verify that the tested array contains all the given keyx (given as an array)
+
+    [php]
+    $array  = array(2, 4, 6);
+    $array2 = array("2"=>1, "3"=>2, "4"=>3);
+
+    $this->assert
+            ->array($array1)
+                ->hasKeys(array(1, 2))//will pass
+                ->hasKeys(array('0', 2))//will pass
+                ->hasKeys(array("2", 0))//will pass
+                ->hasKeys(array(0, 3))//will fail, $array[3] does not exists
+
+    $this->assert
+            ->array($array2)
+                ->hasKeys(array(2, "3"))//will pass
+                ->hasKeys(array("3", 4));//will pass
+
+### notHasKeys ###
+
+notHasKeys will verify that the tested array does not contains any of the given keys (given as an array of keys)
+
+    [php]
+    $array  = array(2, 4, 6);
+    $array2 = array("2"=>1, "3"=>2, "4"=>3);
+
+    $this->assert
+            ->array($array1)
+                ->notHasKeys(array(1, 2))//will fail, all the keys exists in the tested array
+                ->notHasKeys(array('0', 3))//will fail, $array['0'] exists
+                ->notHasKeys(array("4", 5))//will pass, none of the keys exists in the tested array
+                ->notHasKeys(array(3, 'two'))//will pass, none of the keys exists in the tested array
+
+    $this->assert
+            ->array($array2)
+                ->notHasKeys(array(2, "3"))//will pass
+                ->notHasKeys(array("3", 4));//will pass
+
+## sizeOf ##
+
+This asserter is dedicated to test the length of an array.
+
+It extends from the integer asserter : You can use every assertions of the integer asserter while testing the size of an array.
+
+## object ##
+
+This is the asserter dedicated to object testing.
+
+It extends from the variable asserter : You can use every assertions of the variable asserter while testing an object.
+
+### isInstanceOf ###
+
+isInstanceOf will tell if the tested object is an instance of a given interface and or a subclass of a given type.
+
+    [php]
+    $stdClass = new stdClass();
+    $this->assert
+            ->object($stdClass)
+                ->isInstanceOf('\StdClass')//Will pass
+                ->isInstanceOf('\Iterator');//Will fail
+
+
+    interface SomeInterface
+    {
+        public function doTest();
+    }
+
+    class SomeClass implements SomeInterface
+    {
+        public function doTest ()
+        {
+            echo "testing atoum is the best thing ever.";
+        }
+    }
+
+    class SomeChildClass extends SomeClass
+    {
+
+    }
+
+    $someClass = new SomeClass();
+    $someClone = clone($someClass);
+    $someChildClass = new SomeChildClass();
+
+    $this->assert
+            ->object($someClass)
+                ->isInstanceOf('\SomeClass')//will pass
+                ->isInstanceOf('\SomeInterface')//will pass
+                ->isInstanceOf('\SomeChildClass');//will fail
+
+    $this->assert
+            ->object($someClone)
+                ->isInstanceOf('\SomeClass')//will pass
+                ->isInstanceOf('\SomeInterface')//will pass
+                ->isInstanceOf('\SomeChildClass');//will fail
+
+    $this->assert
+            ->object($someChildClass)
+                ->isInstanceOf('\SomeClass')//will pass, inheritance
+                ->isInstanceOf('\SomeInterface')//will pass, inheritance of interfaces
+                ->isInstanceOf('\SomeChildClass');//will pass
+
+### hasSize ###
+
+hasSize will check the size of an object. This assertion have sense mainly if your object implements the Countable
+interface.
+
+
+### isEmpty ###
+
+## phpClass / class ##
+
+This is the asserter dedicated to class definition testing.
+
+### hasParent ###
+
+### hasNoParent ###
+
+### isSubclassOf ###
+
+### hasInterface ###
+
+### isAbstract ###
+
+### hasMethod ###
+
+## testedClass ##
+
+This is the asserter dedicated to the tested class definition testing.
+
+It extends the phpClass (class) asserter : You can use every assertions of the phpClass asserter while testing the tested class.
+
+## hash ##
+
+This is the asserter dedicated to the validation of hashing function results.
+
+It extends the string asserters : You can use every asertions of the string asserter while testing a hash.
+
+### isSha1 ###
+
+isSha1 verify that the given hash *could be* the result of a sha1 hash.
+
+### isSha256 ###
+
+isSha256 verify that the given hash *could be* the result of a sha256 hash.
+
+### isSha512 ###
+
+isSha256 verify that the given hash *could be* the result of a sha512 hash.
+
+### isMd5 ###
+
+md5 verify that the given hash *could be* the result of a md5 hash.
+
+## error ##
+
+This asserter is dedicated to error testing.
+
+### exists ###
+
+### notExists ###
+
+### withType ###
+
+### withAnyType ###
+
+### withMessage ###
+
+### withAnyMessage ###
+
+### withPattern ###
+
+## exception ##
+
+This is the asserter dedicated to exception testing.
+
+It extends from the object asserter : You can use every assertions of the object asserter while testing exceptions.
+
+atoum takes part of closures to test exceptions.
+
+    [php]
+    $this->assert
+            ->exception(function () {
+                //this code will raise an exception
+                throw new Exception('This is an exception');
+            })
+
+### hasDefaultCode ###
+
+### hasCode ###
+
+### hasMessage ###
+
+### hasNestedException ###
+
+## mock ##
+
+This is the asserter dedicated to test your code using mock objects.

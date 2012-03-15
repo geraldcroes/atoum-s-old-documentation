@@ -1,0 +1,1337 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8">
+    <meta name="author" content="Change this: Author Name" />
+    <meta name="date" content="03/15/2012"/>
+    <meta name="generator" content="easybook 4.2"/>
+
+    <title>atoum Documentation</title>
+
+        <link rel="stylesheet" href="./css/easybook.css" />
+    
+    </head>
+
+<body><div id="wrapper">
+
+    <div class="page:cover new-page">
+
+<h1>atoum Documentation</h1>
+
+<h2>Change this: Author Name</h2>
+
+</div>
+    <div class="page:toc new-page">
+
+<h1>Table of contents</h1>
+
+<ul>
+                        
+                                                                <li class="chapter level-1">
+                        <span>Chapter 1</span> <a href="#what-is-atoum-">What is atoum ?</a>
+                    </li>
+                                                                <li class="chapter level-2">
+                        <span>1.1</span> <a href="#download-amp-install">Download &amp; Install</a>
+                    </li>
+                                                                <li class="chapter level-2">
+                        <span>1.2</span> <a href="#a-quick-overview-of-atoums-philosophy">A quick overview of atoum's philosophy</a>
+                    </li>
+                                                                                                                                                                                                                                                                                        
+                            
+                                                                <li class="chapter level-1">
+                        <span>Chapter 2</span> <a href="#asserters">Asserters</a>
+                    </li>
+                                                                <li class="chapter level-2">
+                        <span>2.1</span> <a href="#variable">variable</a>
+                    </li>
+                                                                                                                                                                                                                                                                    <li class="chapter level-2">
+                        <span>2.2</span> <a href="#integer">integer</a>
+                    </li>
+                                                                                                                                                                                                            <li class="chapter level-2">
+                        <span>2.3</span> <a href="#float">float</a>
+                    </li>
+                                                                <li class="chapter level-2">
+                        <span>2.4</span> <a href="#boolean">boolean</a>
+                    </li>
+                                                                                                                        <li class="chapter level-2">
+                        <span>2.5</span> <a href="#string">string</a>
+                    </li>
+                                                                                                                                                                                <li class="chapter level-2">
+                        <span>2.6</span> <a href="#datetime">dateTime</a>
+                    </li>
+                                                                                                                                                                                                            <li class="chapter level-2">
+                        <span>2.7</span> <a href="#phparray-array">phpArray / array</a>
+                    </li>
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    <li class="chapter level-2">
+                        <span>2.8</span> <a href="#sizeof">sizeOf</a>
+                    </li>
+                                                                <li class="chapter level-2">
+                        <span>2.9</span> <a href="#object">object</a>
+                    </li>
+                                                                                                                                                    <li class="chapter level-2">
+                        <span>2.10</span> <a href="#phpclass-class">phpClass / class</a>
+                    </li>
+                                                                                                                                                                                                                                        <li class="chapter level-2">
+                        <span>2.11</span> <a href="#testedclass">testedClass</a>
+                    </li>
+                                                                <li class="chapter level-2">
+                        <span>2.12</span> <a href="#hash">hash</a>
+                    </li>
+                                                                                                                                                                                <li class="chapter level-2">
+                        <span>2.13</span> <a href="#error">error</a>
+                    </li>
+                                                                                                                                                                                                                                                                    <li class="chapter level-2">
+                        <span>2.14</span> <a href="#exception">exception</a>
+                    </li>
+                                                                                                                                                                                <li class="chapter level-2">
+                        <span>2.15</span> <a href="#mock">mock</a>
+                    </li>
+                            
+                    </ul>
+
+</div>
+    <div class="page:chapter new-page">
+
+<h1 id="what-is-atoum-"><span>Chapter 1</span> What is atoum ?</h1>
+
+<p>atoum is a unit testing framework, like PHPUnit or SimpleTest.</p>
+
+<p>atoum distinguished itself as :
+*    It is modern and based on the last PHP versions
+*    It is quite simple and straightforward, with a very limited learning curve
+*    It is intuitive : its API wants to be as close as possible as a natural language</p>
+
+<h2 id="download-amp-install">1.1 Download &amp; Install</h2>
+
+<p>For now, atoum is not tagged with a version number. If you want to use atoum, just download the last stable version. atoum aims to provide backward compatibility anyway.</p>
+
+<p>atoum is distributed as a PHAR archive, an archive format dedicated to PHP, available since PHP 5,3.</p>
+
+<p>You can download the last stable version of atoum directly from the official website here : http://downloads.atoum.org/nightly/mageekguy.atoum.phar</p>
+
+<p>If you want to use atoum directly from it's sources, you can clone it's git repository on github : git://github.com/mageekguy/atoum.git</p>
+
+<h2 id="a-quick-overview-of-atoums-philosophy">1.2 A quick overview of atoum's philosophy</h2>
+
+<h3 id="very-basic-example">1.2.1 Very basic example</h3>
+
+<p>atoum wants you to write a test class for each class you want to test. As an example, if you want to test the famous HelloTheWorld class, you'll have to write the test\units\HelloTheWorld test class.</p>
+
+<p>NOTE : atoum is, of course, namespace aware. As an example, to test the Hello\The\World class, you'll write the \Hello\The\tests\units\World class.</p>
+
+<p>Here is the code of your HelloTheWorld class that we'll be using as a first example. This class will be located in PROJECT_PATH/classes/HelloTheWorld.php</p>
+
+<div class="code php">
+<pre class="php"><span class="kw2">&lt;?php</span>
+<span class="co4">/**
+ * The class to be tested
+ */</span>
+<span class="kw2">class</span> HelloTheWorld
+<span class="br0">&#123;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> getHiBob <span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="kw1">return</span> <span class="st0">&quot;Hi Bob !&quot;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+
+<p>Now, let's write our first test class. This class will be located in PROJECT_PATH/tests/HelloTheWorld.php</p>
+
+<div class="code php">
+<pre class="php"><span class="kw2">&lt;?php</span>
+<span class="co1">//Your test classes are in a dedicated namespace</span>
+<span class="kw2">namespace</span> tests\units<span class="sy0">;</span>
+&nbsp;
+<span class="co1">//You have to include your tested class</span>
+<span class="kw1">require_once</span> __DIR__<span class="sy0">.</span><span class="st_h">'/../classes/HelloTheWorld.php'</span><span class="sy0">;</span>
+&nbsp;
+<span class="co1">//You now include atoum, using it’s phar archive</span>
+<span class="kw1">require_once</span> __DIR__<span class="sy0">.</span><span class="st_h">'/atoum/mageekguy.atoum.phar'</span><span class="sy0">;</span>
+&nbsp;
+<span class="kw2">use</span> \mageekguy\atoum<span class="sy0">;</span>
+&nbsp;
+<span class="co4">/**
+ * Test class for \HelloTheWorld
+ * Test classes extends from atoum\test
+ */</span>
+<span class="kw2">class</span> HelloTheWorld <span class="kw2">extends</span> atoum\test
+<span class="br0">&#123;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> testGetHiBob <span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="co1">//new instance of the tested class</span>
+        <span class="re0">$helloToTest</span> <span class="sy0">=</span> <span class="kw2">new</span> \HelloTheWorld<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+        <span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+                    <span class="co1">//we expect the getHiBob method to return a string</span>
+                    <span class="sy0">-&gt;</span><span class="me1">string</span><span class="br0">&#40;</span><span class="re0">$helloToTest</span><span class="sy0">-&gt;</span><span class="me1">getHiBob</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+                    <span class="co1">//and the string should be Hi Bob !</span>
+                    <span class="sy0">-&gt;</span><span class="me1">isEqualTo</span><span class="br0">&#40;</span><span class="st_h">'Hi Bob !'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+
+<p>Now, let's launch the tests</p>
+
+<div class="code bash">
+<pre class="bash">php <span class="re5">-f</span> .<span class="sy0">/</span>test<span class="sy0">/</span>HelloTheWorld.php</pre>
+</div>
+
+<p>You will see something like this</p>
+
+<div class="code bash">
+<pre class="bash"><span class="sy0">&gt;</span> atoum version nightly-<span class="nu0">941</span>-<span class="nu0">201201011548</span> by Frédéric Hardy <span class="br0">&#40;</span>phar:<span class="sy0">///</span>home<span class="sy0">/</span>documentation<span class="sy0">/</span>projects<span class="sy0">/</span>tests<span class="sy0">/</span>atoum<span class="sy0">/</span>mageekguy.atoum.phar<span class="sy0">/</span><span class="nu0">1</span><span class="br0">&#41;</span>
+<span class="sy0">&gt;</span> PHP path: <span class="sy0">/</span>usr<span class="sy0">/</span>bin<span class="sy0">/</span>php5
+<span class="sy0">&gt;</span> PHP version:
+=<span class="sy0">&gt;</span> PHP 5.3.6-13ubuntu3.3 with Suhosin-Patch <span class="br0">&#40;</span>cli<span class="br0">&#41;</span> <span class="br0">&#40;</span>built: Dec <span class="nu0">13</span> <span class="nu0">2011</span> <span class="nu0">18</span>:<span class="nu0">37</span>:<span class="nu0">10</span><span class="br0">&#41;</span>
+=<span class="sy0">&gt;</span> Copyright <span class="br0">&#40;</span>c<span class="br0">&#41;</span> <span class="nu0">1997</span>-<span class="nu0">2011</span> The PHP Group
+=<span class="sy0">&gt;</span> Zend Engine v2.3.0, Copyright <span class="br0">&#40;</span>c<span class="br0">&#41;</span> <span class="nu0">1998</span>-<span class="nu0">2011</span> Zend Technologies
+=<span class="sy0">&gt;</span>     with Xdebug v2.1.2, Copyright <span class="br0">&#40;</span>c<span class="br0">&#41;</span> <span class="nu0">2002</span>-<span class="nu0">2011</span>, by Derick Rethans
+<span class="sy0">&gt;</span> tests\units\HelloTheWorld...
+<span class="br0">&#91;</span>S___________________________________________________________<span class="br0">&#93;</span><span class="br0">&#91;</span><span class="nu0">1</span><span class="sy0">/</span><span class="nu0">1</span><span class="br0">&#93;</span>
+=<span class="sy0">&gt;</span> Test duration: <span class="nu0">0.01</span> second.
+=<span class="sy0">&gt;</span> Memory usage: <span class="nu0">0.00</span> Mb.
+<span class="sy0">&gt;</span> Total <span class="kw3">test</span> duration: <span class="nu0">0.01</span> second.
+<span class="sy0">&gt;</span> Total <span class="kw3">test</span> memory usage: <span class="nu0">0.00</span> Mb.
+<span class="sy0">&gt;</span> Code coverage value: <span class="nu0">100.00</span><span class="sy0">%</span>
+<span class="sy0">&gt;</span> Running duration: <span class="nu0">0.16</span> second.
+Success <span class="br0">&#40;</span><span class="nu0">1</span> <span class="kw3">test</span>, <span class="nu0">1</span><span class="sy0">/</span><span class="nu0">1</span> method, <span class="nu0">2</span> assertions, <span class="nu0">0</span> error, <span class="nu0">0</span> exception<span class="br0">&#41;</span> <span class="sy0">!</span></pre>
+</div>
+
+<p>You're done, your code is rock solid !</p>
+
+<h3 id="rule-of-thumb">1.2.2 Rule of Thumb</h3>
+
+<p>The basics when you’re testing things using atoum are the following :
+*    Tell atoum what you want to work on (a variable, an object, a string, an integer, …)
+*    Tell atoum the state the element is expected to be in (is equal to, is null, exists, …).</p>
+
+<p>In the above example we tested that the method getHiBob
+*    did return a string (step 1),
+*    and that this string was equal to « Hi Bob ! » (step 2).</p>
+
+<h3 id="more-asserters">1.2.3 More asserters</h3>
+
+<p>There are of course a lot more asserters in atoum. To see the complete list, see chapter 2.</p>
+
+<p>Let's see with a quick class some more asserters in atoum !</p>
+
+<p>First, the class to be tested, located in PROJECT_PATH/classes/BasicTypes.php.</p>
+
+<div class="code php">
+<pre class="php"><span class="kw2">&lt;?php</span>
+<span class="kw2">class</span> BasicTypes
+<span class="br0">&#123;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> getOne <span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span><span class="kw1">return</span> <span class="nu0">1</span><span class="sy0">;</span><span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> getTrue<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span><span class="kw1">return</span> <span class="kw4">true</span><span class="sy0">;</span><span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> getFalse<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span><span class="kw1">return</span> <span class="kw4">false</span><span class="sy0">;</span><span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> getHello<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span><span class="kw1">return</span> <span class="st_h">'hello'</span><span class="sy0">;</span><span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> create<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span><span class="kw1">return</span> <span class="kw2">new</span> BasicTypes<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> getFloat<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span><span class="kw1">return</span> <span class="nu19">1.1</span><span class="sy0">;</span><span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> getNull<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span><span class="kw1">return</span> <span class="kw4">null</span><span class="sy0">;</span><span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> getEmptyArray<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span><span class="kw1">return</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="br0">&#125;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> getArraySizeOf3<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span><span class="kw1">return</span> <span class="kw3">range</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="sy0">,</span><span class="nu0">2</span><span class="sy0">,</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+
+<p>Now the test class, located in PROJECT_PATH/tests/BasicTypes.php</p>
+
+<div class="code php">
+<pre class="php"><span class="kw2">&lt;?php</span> <span class="co1">//...</span>
+<span class="kw2">class</span> BasicTypes <span class="kw2">extends</span> atoum\test
+<span class="br0">&#123;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> testBoolean <span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="re0">$bt</span> <span class="sy0">=</span> <span class="kw2">new</span> \BasicTypes<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+                <span class="sy0">-&gt;</span><span class="me1">boolean</span><span class="br0">&#40;</span><span class="re0">$bt</span><span class="sy0">-&gt;</span><span class="me1">getFalse</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+                    <span class="sy0">-&gt;</span><span class="me1">isFalse</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="co1">//getFalse retourne bien false</span>
+                <span class="sy0">-&gt;</span><span class="me1">boolean</span><span class="br0">&#40;</span><span class="re0">$bt</span><span class="sy0">-&gt;</span><span class="me1">getTrue</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+                    <span class="sy0">-&gt;</span><span class="me1">isTrue</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//getTrue retourne bien true</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw2">function</span> testInteger <span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="re0">$bt</span> <span class="sy0">=</span> <span class="kw2">new</span> \BasicTypes<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+                <span class="sy0">-&gt;</span><span class="me1">integer</span><span class="br0">&#40;</span><span class="re0">$bt</span><span class="sy0">-&gt;</span><span class="me1">getOne</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+                <span class="sy0">-&gt;</span><span class="me1">isEqualTo</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span>
+                <span class="sy0">-&gt;</span><span class="me1">isGreaterThan</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw2">function</span> testString<span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="re0">$bt</span> <span class="sy0">=</span> <span class="kw2">new</span> \BasicTypes<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+                <span class="sy0">-&gt;</span><span class="me1">string</span><span class="br0">&#40;</span><span class="re0">$bt</span><span class="sy0">-&gt;</span><span class="me1">getHello</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+                <span class="sy0">-&gt;</span><span class="me1">isNotEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+                <span class="sy0">-&gt;</span><span class="me1">isEqualTo</span><span class="br0">&#40;</span><span class="st_h">'hello'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw2">function</span> testObject <span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="re0">$bt</span> <span class="sy0">=</span> <span class="kw2">new</span> \BasicTypes<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+                <span class="sy0">-&gt;</span><span class="me1">object</span><span class="br0">&#40;</span><span class="re0">$bt</span><span class="sy0">-&gt;</span><span class="me1">create</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+                <span class="sy0">-&gt;</span><span class="me1">isInstanceOf</span><span class="br0">&#40;</span><span class="st_h">'BasicTypes'</span><span class="br0">&#41;</span>
+                <span class="sy0">-&gt;</span><span class="me1">isNotIdenticalTo</span><span class="br0">&#40;</span><span class="re0">$bt</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//Une nouvelle instance</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw2">function</span> testFloat<span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="re0">$bt</span> <span class="sy0">=</span> <span class="kw2">new</span> \BasicTypes<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+                <span class="sy0">-&gt;</span><span class="me1">float</span><span class="br0">&#40;</span><span class="re0">$bt</span><span class="sy0">-&gt;</span><span class="me1">getFloat</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+                <span class="sy0">-&gt;</span><span class="me1">isEqualTo</span><span class="br0">&#40;</span><span class="nu19">1.1</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw2">function</span> testArray<span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="re0">$bt</span> <span class="sy0">=</span> <span class="kw2">new</span> \BasicTypes<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+                <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$bt</span><span class="sy0">-&gt;</span><span class="me1">getArraySizeOf3</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+                    <span class="sy0">-&gt;</span><span class="me1">hasSize</span><span class="br0">&#40;</span><span class="nu0">3</span><span class="br0">&#41;</span>
+                    <span class="sy0">-&gt;</span><span class="me1">isNotEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+                <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$bt</span><span class="sy0">-&gt;</span><span class="me1">getEmptyArray</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+                    <span class="sy0">-&gt;</span><span class="me1">isEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw2">public</span> <span class="kw2">function</span> testNull <span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="re0">$bt</span> <span class="sy0">=</span> <span class="kw2">new</span> \BasicTypes<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+                <span class="sy0">-&gt;</span><span class="me1">variable</span><span class="br0">&#40;</span><span class="re0">$bt</span><span class="sy0">-&gt;</span><span class="me1">getNull</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+                <span class="sy0">-&gt;</span><span class="me1">isNull</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+
+<p>Here you are, you saw a complet and basic example of tests using atoum.</p>
+
+<h3 id="testing-a-singleton">1.2.4 Testing a Singleton</h3>
+
+<p>To test if your method always returns the same instance of the same object, you can ask atoum to check that the instances are identicals.</p>
+
+<div class="code php">
+<pre class="php"><span class="kw2">&lt;?php</span> <span class="co1">//...</span>
+<span class="kw2">class</span> Singleton <span class="kw2">extends</span> atoum\test
+<span class="br0">&#123;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> testGetInstance<span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+                <span class="sy0">-&gt;</span><span class="me1">object</span><span class="br0">&#40;</span>\Singleton<span class="sy0">::</span><span class="me2">getInstance</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+                    <span class="sy0">-&gt;</span><span class="me1">isInstanceOf</span><span class="br0">&#40;</span><span class="st_h">'Singleton'</span><span class="br0">&#41;</span>
+                    <span class="sy0">-&gt;</span><span class="me1">isIdenticalTo</span><span class="br0">&#40;</span>\Singleton<span class="sy0">::</span><span class="me2">getInstance</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+
+<h3 id="testing-exceptions">1.2.5 Testing exceptions</h3>
+
+<p>To test exceptions atoum is using closures (introduced in PHP 5,3).</p>
+
+<div class="code php">
+<pre class="php"><span class="kw2">class</span> ExceptionLauncher <span class="kw2">extends</span> atoum\test
+<span class="br0">&#123;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> testLaunchException <span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="re0">$exception</span> <span class="sy0">=</span> <span class="kw2">new</span> \ExceptionLauncher<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+                 <span class="sy0">-&gt;</span><span class="me1">exception</span><span class="br0">&#40;</span><span class="kw2">function</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="kw2">use</span><span class="br0">&#40;</span><span class="re0">$exception</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+                                <span class="re0">$exception</span><span class="sy0">-&gt;</span><span class="me1">launchException</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                            <span class="br0">&#125;</span><span class="br0">&#41;</span>
+                 <span class="sy0">-&gt;</span><span class="me1">isInstanceOf</span><span class="br0">&#40;</span><span class="st_h">'LaunchedException'</span><span class="br0">&#41;</span>
+                 <span class="sy0">-&gt;</span><span class="me1">hasMessage</span><span class="br0">&#40;</span><span class="st_h">'Message in the exception'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+
+<h3 id="testing-errors">1.2.6 Testing errors</h3>
+
+<p>Again, atoum is nicely using closure to test errors (NOTICE, WARNING, …) :</p>
+
+<div class="code php">
+<pre class="php"><span class="kw2">class</span> RaiseError <span class="kw2">extends</span> atoum\test
+<span class="br0">&#123;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> testRaiseError <span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="re0">$error</span> <span class="sy0">=</span> <span class="kw2">new</span> \RaiseError<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+        <span class="re0">$this</span><span class="sy0">-&gt;</span><span class="me1">assert</span><span class="sy0">-&gt;</span><span class="me1">object</span><span class="br0">&#40;</span><span class="re0">$error</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+                 <span class="sy0">-&gt;</span><span class="me1">when</span><span class="br0">&#40;</span><span class="kw2">function</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="kw2">use</span><span class="br0">&#40;</span><span class="re0">$error</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+                        <span class="re0">$error</span><span class="sy0">-&gt;</span><span class="me1">raise</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                 <span class="br0">&#125;</span><span class="br0">&#41;</span>
+                 <span class="sy0">-&gt;</span><span class="me1">error</span><span class="br0">&#40;</span><span class="st_h">'This is an error'</span><span class="sy0">,</span> <span class="kw4">E_USER_WARNING</span><span class="br0">&#41;</span>
+                    <span class="sy0">-&gt;</span><span class="me1">exists</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                 <span class="co1">//Sachant qu'il est possible de ne spécifier</span>
+                 <span class="co1">// ni message ni type attendu.</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+
+<h3 id="testing-using-mocks">1.2.7 Testing using Mocks</h3>
+
+<p>Mocks are of course supported by atoum !
+Generating a Mock from an interface</p>
+
+<p>atoum can generate a mock directly from an interface.</p>
+
+<div class="code php">
+<pre class="php"><span class="kw2">class</span> UsingWriter <span class="kw2">extends</span> atoum\test
+<span class="br0">&#123;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> testWithMockedInterface <span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="re0">$this</span><span class="sy0">-&gt;</span><span class="me1">mockGenerator</span><span class="sy0">-&gt;</span><span class="me1">generate</span><span class="br0">&#40;</span><span class="st_h">'\IWriter'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="re0">$mockIWriter</span> <span class="sy0">=</span> <span class="kw2">new</span> \mock\IWriter<span class="sy0">;</span>
+&nbsp;
+        <span class="re0">$usingWriter</span> <span class="sy0">=</span> <span class="kw2">new</span> \UsingWriter<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="co1">//La méthode setIWriter attends un objet</span>
+        <span class="co1">//qui implemente l'interface IWriter</span>
+        <span class="co1">//  (setIWriter (IWriter $writer))</span>
+        <span class="re0">$usingWriter</span><span class="sy0">-&gt;</span><span class="me1">setIWriter</span><span class="br0">&#40;</span><span class="re0">$mockIWriter</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+        <span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+                <span class="sy0">-&gt;</span><span class="me1">when</span><span class="br0">&#40;</span><span class="kw2">function</span> <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">use</span><span class="br0">&#40;</span><span class="re0">$usingWriter</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                                <span class="re0">$usingWriter</span><span class="sy0">-&gt;</span><span class="me1">write</span><span class="br0">&#40;</span><span class="st_h">'hello'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                <span class="br0">&#125;</span><span class="br0">&#41;</span>
+                <span class="sy0">-&gt;</span><span class="me1">mock</span><span class="br0">&#40;</span><span class="re0">$mockIWriter</span><span class="br0">&#41;</span>
+                    <span class="sy0">-&gt;</span><span class="me1">call</span><span class="br0">&#40;</span><span class="st_h">'write'</span><span class="br0">&#41;</span>
+                    <span class="sy0">-&gt;</span><span class="me1">once</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+
+<h3 id="generating-a-mock-from-a-class">1.2.8 Generating a Mock from a class</h3>
+
+<p>atoum can generate a mock directly from a class definition.</p>
+
+<div class="code php">
+<pre class="php"><span class="kw2">public</span> <span class="kw2">function</span> testWithMockedObject <span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="re0">$this</span><span class="sy0">-&gt;</span><span class="me1">mockGenerator</span><span class="sy0">-&gt;</span><span class="me1">generate</span><span class="br0">&#40;</span><span class="st_h">'\Writer'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="re0">$mockWriter</span> <span class="sy0">=</span> <span class="kw2">new</span> \mock\Writer<span class="sy0">;</span>
+&nbsp;
+    <span class="re0">$usingWriter</span> <span class="sy0">=</span> <span class="kw2">new</span> \UsingWriter<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+    <span class="co1">//La méthode setWriter attends un objet</span>
+    <span class="co1">//de type Writer (setWriter (Writer $writer))</span>
+    <span class="re0">$usingWriter</span><span class="sy0">-&gt;</span><span class="me1">setWriter</span><span class="br0">&#40;</span><span class="re0">$mockWriter</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+    <span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+            <span class="sy0">-&gt;</span><span class="me1">when</span><span class="br0">&#40;</span><span class="kw2">function</span> <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">use</span><span class="br0">&#40;</span><span class="re0">$usingWriter</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                            <span class="re0">$usingWriter</span><span class="sy0">-&gt;</span><span class="me1">write</span><span class="br0">&#40;</span><span class="st_h">'hello'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+            <span class="br0">&#125;</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">mock</span><span class="br0">&#40;</span><span class="re0">$mockWriter</span><span class="br0">&#41;</span>
+                <span class="sy0">-&gt;</span><span class="me1">call</span><span class="br0">&#40;</span><span class="st_h">'write'</span><span class="br0">&#41;</span>
+                <span class="sy0">-&gt;</span><span class="me1">once</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+
+<h3 id="generating-a-mock-from-scratch">1.2.9 Generating a Mock from scratch</h3>
+
+<p>atoum can also let you create and completely specify a mock object.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$this</span><span class="sy0">-&gt;</span><span class="me1">mockGenerator</span><span class="sy0">-&gt;</span><span class="me1">generate</span><span class="br0">&#40;</span><span class="st_h">'WriterFree'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$mockWriter</span> <span class="sy0">=</span> <span class="kw2">new</span> \mock\WriterFree<span class="sy0">;</span>
+<span class="re0">$mockWriter</span><span class="sy0">-&gt;</span><span class="me1">getMockController</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">-&gt;</span><span class="me1">write</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span><span class="re0">$text</span><span class="br0">&#41;</span><span class="br0">&#123;</span><span class="br0">&#125;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$usingWriter</span> <span class="sy0">=</span> <span class="kw2">new</span> \UsingWriter<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$usingWriter</span><span class="sy0">-&gt;</span><span class="me1">setFreeWriter</span><span class="br0">&#40;</span><span class="re0">$mockWriter</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+</div>
+
+<pre><code>$this-&gt;assert
+        -&gt;when(function () use($usingWriter) {
+                        $usingWriter-&gt;write('hello');
+        })
+        -&gt;mock($mockWriter)
+            -&gt;call('write')
+            -&gt;once();
+</code></pre>
+
+
+</div>
+    <div class="page:chapter new-page">
+
+<h1 id="asserters"><span>Chapter 2</span> Asserters</h1>
+
+<h2 id="variable">2.1 variable</h2>
+
+<p>This is the base asserter for variables, it includes the basics assertions you may need while testing values of any type.</p>
+
+<h3 id="isequalto">2.1.1 isEqualTo</h3>
+
+<p>isEqualTo verify that the tested variable is equal to a given value.
+    [php]
+    $a = 'a';</p>
+
+<div class="code code">
+<pre class="code">$this-&gt;assert
+        -&gt;variable($a)
+           -&gt;isEqualTo('a');//Will pass
+&nbsp;
+isEqualTo won't verify the type of the variables, only the value itself.
+&nbsp;
+$a1 = '1';
+&nbsp;
+$a2 = 1;
+&nbsp;
+&nbsp;
+$this-&gt;assert
+        -&gt;variable($a1)
+           -&gt;isEqualTo($a2); //Will pass</pre>
+</div>
+
+<p>Note</p>
+
+<p>while testing values of different types with isEqualTo, variables are compared like the == operator in PHP.</p>
+
+<p>If you to verify both types and values, use the isIdenticalTo assertion instead.</p>
+
+<h3 id="isnotequalto">2.1.2 isNotEqualTo</h3>
+
+<p>isNotEqualTo verify that the tested variable is different from a given value.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$a</span> <span class="sy0">=</span> <span class="st_h">'a'</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">variable</span><span class="br0">&#40;</span><span class="re0">$a</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isNotEqualTo</span><span class="br0">&#40;</span><span class="st_h">'a'</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//Will fail</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">variable</span><span class="br0">&#40;</span><span class="re0">$a</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isNotEqualTo</span><span class="br0">&#40;</span><span class="st_h">'b'</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//Will pass</span>
+&nbsp;
+<span class="kw1">As</span> isEqualTo<span class="sy0">,</span> isNotEqualTo won<span class="st_h">'t check the type of the variables.
+&nbsp;
+$a1 = '</span><span class="nu0">1</span><span class="st_h">';
+&nbsp;
+$this-&gt;assert
+        -&gt;variable($a1)
+           -&gt;isNotEqualTo(1);//Will fail</span></pre>
+</div>
+
+<h3 id="isidenticalto">2.1.3 isIdenticalTo</h3>
+
+<p>isIdenticalTo verify that the tested variables are the same (types and values). In case you are testing objects, isIdenticalTo will tell if both variables represents the same instance.</p>
+
+<div class="code code">
+<pre class="code">$a1 = '1';
+&nbsp;
+$this-&gt;assert
+        -&gt;variable($a1)
+           -&gt;isIdenticalTo(1); //Will fail
+&nbsp;
+$stdClass    = new StdClass();
+$stdClass2   = new StdClass();
+$stdClassRef = $stdClass;
+&nbsp;
+$this-&gt;assert
+        -&gt;variable($stdClass)
+           -&gt;isIdenticalTo(stdClass2); //Will fail
+&nbsp;
+$this-&gt;assert
+        -&gt;variable($stdClass)
+           -&gt;isIdenticalTo(stdClassRef); //Will pass</pre>
+</div>
+
+<p>If you don't want to consider the types of the variable, use isEqualTo.</p>
+
+<h3 id="isnotidenticalto">2.1.4 isNotIdenticalTo</h3>
+
+<p>isNotIdenticalTo verify that the tested variables are not the same (types or values). In case you are testing objects, isNotIdenticalTo will assert that the tested variables points to different instances.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$a1</span> <span class="sy0">=</span> <span class="st_h">'1'</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">variable</span><span class="br0">&#40;</span><span class="re0">$a1</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isNotIdenticalTo</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">//Will Pass ($a1 is a string, does not match an integer)</span>
+&nbsp;
+<span class="re0">$stdClass</span>    <span class="sy0">=</span> <span class="kw2">new</span> StdClass<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$stdClass2</span>   <span class="sy0">=</span> <span class="kw2">new</span> StdClass<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$stdClassRef</span> <span class="sy0">=</span> <span class="re0">$stdClass</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">variable</span><span class="br0">&#40;</span><span class="re0">$stdClass</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isNotIdenticalTo</span><span class="br0">&#40;</span>stdClass2<span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">//Will fail, variables do not point to the same instance, even if their values are the same</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">variable</span><span class="br0">&#40;</span><span class="re0">$stdClass</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isNotIdenticalTo</span><span class="br0">&#40;</span>stdClassRef<span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">//Will fail, both variables points to the same instance of StdClass</span></pre>
+</div>
+
+<p>If you don't want to consider the types of the variables, use isNotEqualTo.</p>
+
+<h3 id="isnull">2.1.5 isNull</h3>
+
+<p>isNull verify that the variable is null.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$a1</span> <span class="sy0">=</span> <span class="st_h">''</span><span class="sy0">;</span>
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">variable</span><span class="br0">&#40;</span><span class="re0">$a1</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isNull</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">//Will Fail ($a1 is empty but not null)</span>
+&nbsp;
+<span class="re0">$a2</span> <span class="sy0">=</span> <span class="kw4">null</span><span class="sy0">;</span>
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">variable</span><span class="br0">&#40;</span><span class="re0">$a2</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isNull</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">//Will Pass</span></pre>
+</div>
+
+<h3 id="isnotnull">2.1.6 isNotNull</h3>
+
+<p>isNotNull verify taht the variable is not null.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$a1</span> <span class="sy0">=</span> <span class="st_h">''</span><span class="sy0">;</span>
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">variable</span><span class="br0">&#40;</span><span class="re0">$a1</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isNotNull</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">//Will pass ($a1 is empty but not null)</span></pre>
+</div>
+
+<h3 id="isreferenceto">2.1.7 isReferenceTo</h3>
+
+<h2 id="integer">2.2 integer</h2>
+
+<p>This is the asserter dedicated to integer testing. It extends the variable asserter : You can use every assertions in the variable asserter while testing integers.</p>
+
+<p>If you try to test a variable that is not an integer with the integer asserter, it will raise a failure.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$a1</span> <span class="sy0">=</span> <span class="st_h">'1'</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">integer</span><span class="br0">&#40;</span><span class="re0">$a1</span><span class="br0">&#41;</span> <span class="co1">//Will fail, a1 is not an integer, event if it represents one</span></pre>
+</div>
+
+<p>Note</p>
+
+<p>null is not considered as a valid integer. You can check PHP's is_int function to check what is considered an integer.</p>
+
+<h3 id="iszero">2.2.1 isZero</h3>
+
+<p>isZero verify that the tested variable is equal to 0.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$zero</span> <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+<span class="re0">$minusOne</span> <span class="sy0">=</span> <span class="sy0">-</span><span class="nu0">1</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">integer</span><span class="br0">&#40;</span><span class="re0">$zero</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isZero</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will pass</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">integer</span><span class="br0">&#40;</span><span class="re0">$minusOne</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isZero</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will fail</span></pre>
+</div>
+
+<h3 id="islessthan">2.2.2 isLessThan</h3>
+
+<p>isLessThan verify that the tested integer is strictly less than a given integer.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$zero</span> <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">integer</span><span class="br0">&#40;</span><span class="re0">$zero</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isLessThan</span><span class="br0">&#40;</span><span class="nu0">10</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will pass</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">integer</span><span class="br0">&#40;</span><span class="re0">$zero</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isLessThan</span><span class="br0">&#40;</span><span class="st_h">'10'</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will fail, you have to pass an actual integer to isLessThan</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">integer</span><span class="br0">&#40;</span><span class="re0">$zero</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isLessThan</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will fail, 0 is equal to 0</span></pre>
+</div>
+
+<p>Note</p>
+
+<p>values given to isLessThan must be actual integers.</p>
+
+<h3 id="isgreaterthan">2.2.3 isGreaterThan</h3>
+
+<p>isGreaterThan verify that the tested integer is strictly greater than a given integer.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$zero</span> <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">integer</span><span class="br0">&#40;</span><span class="re0">$zero</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isGreaterThan</span><span class="br0">&#40;</span><span class="sy0">-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will pass</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">integer</span><span class="br0">&#40;</span><span class="re0">$zero</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isGreaterThan</span><span class="br0">&#40;</span><span class="st_h">'-1'</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will fail, you have to pass an actual integer to isGreaterThan</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">integer</span><span class="br0">&#40;</span><span class="re0">$zero</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isGreaterThan</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will fail, 0 is equal to 0</span></pre>
+</div>
+
+<p>Note</p>
+
+<p>values given to isGreaterThan must be actual integers.</p>
+
+<h3 id="islessthanorequalto">2.2.4 isLessThanOrEqualTo</h3>
+
+<p>isLessThanOrEqualTo verify that the tested integer is less or equal to a given integer.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$zero</span> <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">integer</span><span class="br0">&#40;</span><span class="re0">$zero</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isLessThanOrEqualTo</span><span class="br0">&#40;</span><span class="nu0">10</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will pass</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">integer</span><span class="br0">&#40;</span><span class="re0">$zero</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isLessThanOrEqualTo</span><span class="br0">&#40;</span><span class="st_h">'10'</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will fail, you have to pass an actual integer to isLessThanOrEqualTo</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">integer</span><span class="br0">&#40;</span><span class="re0">$zero</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isLessThanOrEqualTo</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will pass</span></pre>
+</div>
+
+<p>Note</p>
+
+<p>values given to isLessThanOrEqualTo must be actual integers.</p>
+
+<h3 id="isgreaterthanorequalto">2.2.5 isGreaterThanOrEqualTo</h3>
+
+<p>isGreaterThanOrEqualTo verify that the tested integer is greater or equal to a given integer.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$zero</span> <span class="sy0">=</span> <span class="nu0">0</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">integer</span><span class="br0">&#40;</span><span class="re0">$zero</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isGreaterThanOrEqualTo</span><span class="br0">&#40;</span><span class="sy0">-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will pass</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">integer</span><span class="br0">&#40;</span><span class="re0">$zero</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isGreaterThanOrEqualTo</span><span class="br0">&#40;</span><span class="st_h">'-1'</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will fail, you have to pass an actual integer to isGreaterThanOrEqualTo</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">integer</span><span class="br0">&#40;</span><span class="re0">$zero</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isGreaterThanOrEqualTo</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will pass</span></pre>
+</div>
+
+<p>Note</p>
+
+<p>values given to isGreaterThanOrEqualTo must be actual integers.</p>
+
+<h2 id="float">2.3 float</h2>
+
+<p>This is the asserter dedicated to floating values testing.</p>
+
+<p>It extends the integer asserter making it possible to test floating point values.</p>
+
+<p>You can use every assertions that are present in the integer asserter.
+Note</p>
+
+<p>Of course, while testing float values, assertions that expected integers will expect float values (isGreaterThan, isGreaterOrEqualTo, isLessThan, isLessThanOrEqualTo)</p>
+
+<h2 id="boolean">2.4 boolean</h2>
+
+<p>This is the asserter dedicated to boolean testing.</p>
+
+<p>It extends the variable asserter.</p>
+
+<h3 id="istrue">2.4.1 isTrue</h3>
+
+<p>isTrue verify that the tested boolean is true (strictly equals to false).</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$boolean</span> <span class="sy0">=</span> <span class="kw4">false</span><span class="sy0">;</span>
+<span class="re0">$boolean2</span> <span class="sy0">=</span> <span class="kw4">true</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">boolean</span><span class="br0">&#40;</span><span class="re0">$boolean</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isTrue</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will fail</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">boolean</span><span class="br0">&#40;</span><span class="re0">$boolean2</span><span class="br0">&#41;</span>
+           <span class="sy0">-&gt;</span><span class="me1">isTrue</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will pass</span></pre>
+</div>
+
+<h3 id="isfalse">2.4.2 isFalse</h3>
+
+<p>isFalse verify that the tested boolean is false (strictly equals to false).</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$boolean</span> <span class="sy0">=</span> <span class="kw4">false</span><span class="sy0">;</span>
+<span class="re0">$boolean2</span> <span class="sy0">=</span> <span class="kw4">true</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+       <span class="sy0">-&gt;</span><span class="me1">boolean</span><span class="br0">&#40;</span><span class="re0">$boolean</span><span class="br0">&#41;</span>
+          <span class="sy0">-&gt;</span><span class="me1">isFalse</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will pass</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+       <span class="sy0">-&gt;</span><span class="me1">boolean</span><span class="br0">&#40;</span><span class="re0">$boolean2</span><span class="br0">&#41;</span>
+          <span class="sy0">-&gt;</span><span class="me1">isFalse</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span> <span class="co1">// Will fail</span></pre>
+</div>
+
+<h2 id="string">2.5 string</h2>
+
+<p>This is the asserter dedicated to string testing.</p>
+
+<p>It extends the variable asserter : You can use every assertions of the variable asserter while testing a string.</p>
+
+<h3 id="isempty">2.5.1 isEmpty</h3>
+
+<p>isEmpty verify that the string is empty (no characters)</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$emptyString</span> <span class="sy0">=</span> <span class="st_h">''</span><span class="sy0">;</span>
+<span class="re0">$nonEmptyString</span> <span class="sy0">=</span> <span class="st_h">' '</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">string</span><span class="br0">&#40;</span><span class="re0">$emptyString</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">isEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//Will pass</span>
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">string</span><span class="br0">&#40;</span><span class="re0">$nonEmptyString</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">isEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//Will fail</span></pre>
+</div>
+
+<h3 id="isnotempty">2.5.2 isNotEmpty</h3>
+
+<p>isNotEmpty verify that the string is not empty (contains some characters)</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$emptyString</span> <span class="sy0">=</span> <span class="st_h">''</span><span class="sy0">;</span>
+<span class="re0">$nonEmptyString</span> <span class="sy0">=</span> <span class="st_h">' '</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">string</span><span class="br0">&#40;</span><span class="re0">$emptyString</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">isNotEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//Will fail</span>
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">string</span><span class="br0">&#40;</span><span class="re0">$nonEmptyString</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">isNotEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//Will pass</span></pre>
+</div>
+
+<h3 id="match">2.5.3 match</h3>
+
+<p>match will try to verify that the string matches a given regular expression.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$polite</span> <span class="sy0">=</span> <span class="st_h">'Hello the world'</span><span class="sy0">;</span>
+<span class="re0">$rude</span>   <span class="sy0">=</span> <span class="st_h">'yeah... the world '</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">string</span><span class="br0">&#40;</span><span class="re0">$polite</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">match</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will pass</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">string</span><span class="br0">&#40;</span><span class="re0">$rude</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">match</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will fail</span></pre>
+</div>
+
+<h3 id="haslength">2.5.4 hasLength</h3>
+
+<p>hasLength will verify that the string has a given length.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$string</span> <span class="sy0">=</span> <span class="st_h">'Hello the world'</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">string</span><span class="br0">&#40;</span><span class="re0">$string</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">hasLength</span><span class="br0">&#40;</span><span class="nu0">15</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//Will pass</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">string</span><span class="br0">&#40;</span><span class="re0">$string</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">hasLength</span><span class="br0">&#40;</span><span class="nu0">16</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//Will fail</span></pre>
+</div>
+
+<h2 id="datetime">2.6 dateTime</h2>
+
+<p>This is the asserter dedicated to DateTime testing.</p>
+
+<p>It extends from the variable asserter : You can use every assertions of the variable asserter while testing a DateTime object.</p>
+
+<h3 id="hastimezone">2.6.1 hasTimezone</h3>
+
+<h3 id="isinyear">2.6.2 isInYear</h3>
+
+<h3 id="isinmonth">2.6.3 isInMonth</h3>
+
+<h3 id="isinday">2.6.4 isInDay</h3>
+
+<h3 id="hasdate">2.6.5 hasDate</h3>
+
+<h2 id="phparray-array">2.7 phpArray / array</h2>
+
+<p>This is the asserter dedicated to array testing.</p>
+
+<p>It extends from the variable asserter : You can use every assertions of the variable asserter while testing arrays.</p>
+
+<h3 id="hassize">2.7.1 hasSize</h3>
+
+<p>hasSize will verify that the tested array has a given number of element (non recursive).</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$array</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">3</span><span class="sy0">,</span> <span class="nu0">7</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$array</span><span class="br0">&#41;</span>
+        <span class="sy0">-&gt;</span><span class="me1">hasSize</span><span class="br0">&#40;</span><span class="nu0">4</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will pass</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$array</span><span class="br0">&#41;</span>
+        <span class="sy0">-&gt;</span><span class="me1">hasSize</span><span class="br0">&#40;</span><span class="nu0">7</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//Will fail</span></pre>
+</div>
+
+<h3 id="isempty-3">2.7.2 isEmpty</h3>
+
+<p>isEmpty will verify that the array is empty (does not contains any value)</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$emptyArray</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$nonEmptyArray</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="sy0">,</span> <span class="kw4">null</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$emptyArray</span><span class="br0">&#41;</span>
+        <span class="sy0">-&gt;</span><span class="me1">isEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will pass</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$nonEmptyArray</span><span class="br0">&#41;</span>
+        <span class="sy0">-&gt;</span><span class="me1">isEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will fail</span></pre>
+</div>
+
+<h3 id="isnotempty-3">2.7.3 isNotEmpty</h3>
+
+<p>isEmpty will verify that the array is not empty (contains at least one value of any kind)</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$emptyArray</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$nonEmptyArray</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="sy0">,</span> <span class="kw4">null</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$emptyArray</span><span class="br0">&#41;</span>
+        <span class="sy0">-&gt;</span><span class="me1">isNotEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will fail</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$nonEmptyArray</span><span class="br0">&#41;</span>
+        <span class="sy0">-&gt;</span><span class="me1">isNotEmpty</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will pass</span></pre>
+</div>
+
+<h3 id="contains">2.7.4 contains</h3>
+
+<p>contains will verify that the tested array directly contains a given value (will not search for the value recursively).
+contains will not test the type of the value.</p>
+
+<p>If you want to test both the type and the value, you will use strictlyContains.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$arrayWithNull</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$arrayWithEmptyString</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">''</span><span class="sy0">,</span> <span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$arrayWithArrayWithNull</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$arrayWithString1</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">'1'</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithNull</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">contains</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will pass</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithEmptyString</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">contains</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="co1">//will pass (null == '')</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithArrayWithNull</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">contains</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will fail, does not search recursively</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithString1</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">contains</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will pass, does not match the type</span></pre>
+</div>
+
+<h3 id="notcontains">2.7.5 notContains</h3>
+
+<p>notContains will verify that the tested array does not contains a given value (will not search for the value recursively).
+notContains will not test the type of the value.</p>
+
+<p>If you want to test both the type and the value, you will use strictlyNotContains.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$arrayWithNull</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$arrayWithEmptyString</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">''</span><span class="sy0">,</span> <span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$arrayWithArrayWithNull</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$arrayWithString1</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">'1'</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithNull</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">notContains</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will fail</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithEmptyString</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">notContains</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="co1">//will fail (null == '')</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithArrayWithNull</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">notContains</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will pass, does not search recursively</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithString1</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">notContains</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will fail, 1 == '1'</span></pre>
+</div>
+
+<h3 id="containsvalues">2.7.6 containsValues</h3>
+
+<p>containsValues will verify that the tested array does contains some values (given in an array)
+containsValues will not test the type of the values to look for.</p>
+
+<p>If you want to test both the types and the values, you will use strictlyContainsValues.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$arrayWithString1And2And3</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">'1'</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithString1And2And3</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">containsValues</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will pass</span>
+            <span class="sy0">-&gt;</span><span class="me1">containsValues</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">'1'</span><span class="sy0">,</span> <span class="st_h">'2'</span><span class="sy0">,</span> <span class="st_h">'3'</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will pass</span>
+            <span class="sy0">-&gt;</span><span class="me1">containsValues</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">'1, 2, 3));//will pass</span></pre>
+</div>
+
+<h3 id="notcontainsvalues">2.7.7 notContainsValues</h3>
+
+<p>notContainsValues will verify that the tested array does not contains any value of a given array
+notContainsValues will not test the type of the values to look for.</p>
+
+<p>If you want to test both the types and the values, you will use strictlyNotContainsValues.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$arrayWithString1And2And3</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">'1'</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithString1And2And3</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">notContainsValues</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">,</span> <span class="nu0">4</span><span class="sy0">,</span> <span class="nu0">5</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will faill as '1' is in the tested array</span>
+            <span class="sy0">-&gt;</span><span class="me1">notContainsValues</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">4</span><span class="sy0">,</span> <span class="nu0">6</span><span class="sy0">,</span> <span class="st_h">'2'</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will fail as 2 is in the tested array</span>
+            <span class="sy0">-&gt;</span><span class="me1">notContainsValues</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">'1'</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will fail as all the values are in the tested array</span>
+            <span class="sy0">-&gt;</span><span class="me1">notContainsValues</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">4</span><span class="sy0">,</span> <span class="nu0">5</span><span class="sy0">,</span> <span class="nu0">6</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will pass as none of the values are in the tested array</span></pre>
+</div>
+
+<h3 id="strictlycontainsvalues">2.7.8 strictlyContainsValues</h3>
+
+<p>strictlyContainsValues will verify that the tested array contains all the values of a given array
+stricltyContainsValues will test the type of the values to look for.</p>
+
+<p>If you do not want to test both the types and the values, you will use containsValues.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$arrayWithString1And2And3</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">'1'</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithString1And2And3</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">notContainsValues</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will faill as '1' is in the tested array, not 1</span>
+            <span class="sy0">-&gt;</span><span class="me1">notContainsValues</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">'3'</span><span class="sy0">,</span> <span class="st_h">'2'</span><span class="sy0">,</span> <span class="st_h">'1'</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will fail as '3' and '2' are not in the tested array, but 2 and 3 are</span>
+            <span class="sy0">-&gt;</span><span class="me1">notContainsValues</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">2</span><span class="sy0">,</span> <span class="st_h">'1'</span><span class="sy0">,</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will pass as all the values are in the tested array</span></pre>
+</div>
+
+<h3 id="strictlynotcontainsvalues">2.7.9 strictlyNotContainsValues</h3>
+
+<p>strictlyNotContainsValues will verify that the tested array does not contains any value of a given array
+strictlyNotContainsValues will test the type of the values to look for.</p>
+
+<p>If you do not want to test both the types and the values, you will use notContainsValues.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$arrayWithString1And2And3</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">'1'</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithString1And2And3</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">notContainsValues</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">,</span> <span class="nu0">4</span><span class="sy0">,</span> <span class="nu0">5</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will pass as none of the values are in the tested array (1 !== '1')</span>
+            <span class="sy0">-&gt;</span><span class="me1">notContainsValues</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">4</span><span class="sy0">,</span> <span class="nu0">6</span><span class="sy0">,</span> <span class="st_h">'2'</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will pass as none of the values are in the tested array (2 !== '2')</span>
+            <span class="sy0">-&gt;</span><span class="me1">notContainsValues</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">'1'</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will fail as all of the values are in the tested array</span>
+            <span class="sy0">-&gt;</span><span class="me1">notContainsValues</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">4</span><span class="sy0">,</span> <span class="nu0">5</span><span class="sy0">,</span> <span class="nu0">6</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will pass as none of the values are in the tested array</span></pre>
+</div>
+
+<h3 id="strictlycontains">2.7.10 strictlyContains</h3>
+
+<p>contains will verify that the tested array directly contains a given value (will not search for the value recursively).
+contains will test the type of the value.</p>
+
+<p>If you do not want to test both the type and the value, you will use contains.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$arrayWithNull</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$arrayWithEmptyString</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">''</span><span class="sy0">,</span> <span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$arrayWithArrayWithNull</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$arrayWithString1</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">'1'</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithNull</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">strictlyContains</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="co1">//will pass</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithEmptyString</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">strictlyContains</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="co1">//will fail (null !== '')</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithArrayWithNull</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">strictlyContains</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="co1">//will fail, does not search recursively</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithString1</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">strictlyContains</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="co1">//will fail, 1 !== '1'</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithString1</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">strictlyContains</span><span class="br0">&#40;</span><span class="st_h">'1'</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//Will pass</span></pre>
+</div>
+
+<h3 id="strictlynotcontains">2.7.11 strictlyNotContains</h3>
+
+<p>strictlyNotContains will verify that the tested array does not contains a given value (will not search for the value recursively).
+strictlyNotContains will test the type of the value.</p>
+
+<p>If you do not want to test both the type and the value, you will use notContains.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$arrayWithNull</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$arrayWithEmptyString</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">''</span><span class="sy0">,</span> <span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$arrayWithArrayWithNull</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$arrayWithString1</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">'1'</span><span class="sy0">,</span> <span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithNull</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">strictlyNotContains</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="co1">//will fail</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithEmptyString</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">strictlyNotContains</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="co1">//will pass (null !== '')</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithArrayWithNull</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">strictlyNotContains</span><span class="br0">&#40;</span><span class="kw4">null</span><span class="br0">&#41;</span><span class="co1">//will pass, does not search recursively</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$arrayWithString1</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">strictlyNotContains</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will pass, 1 !== '1'</span></pre>
+</div>
+
+<h3 id="haskey">2.7.12 hasKey</h3>
+
+<p>hasKey will verify that the given array has a given key</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$array</span>  <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">4</span><span class="sy0">,</span> <span class="nu0">6</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$array2</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="st0">&quot;2&quot;</span><span class="sy0">=&gt;</span><span class="nu0">1</span><span class="sy0">,</span> <span class="st0">&quot;3&quot;</span><span class="sy0">=&gt;</span><span class="nu0">2</span><span class="sy0">,</span> <span class="st0">&quot;4&quot;</span><span class="sy0">=&gt;</span><span class="nu0">3</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$array1</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">hasKey</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="co1">//will pass</span>
+            <span class="sy0">-&gt;</span><span class="me1">hasKey</span><span class="br0">&#40;</span><span class="nu0">2</span><span class="br0">&#41;</span><span class="co1">//will pass</span>
+            <span class="sy0">-&gt;</span><span class="me1">hasKey</span><span class="br0">&#40;</span><span class="st_h">'1'</span><span class="br0">&#41;</span><span class="co1">//will pass, keys are &quot;casted&quot;, and $array[1] do exists</span>
+            <span class="sy0">-&gt;</span><span class="me1">hasKey</span><span class="br0">&#40;</span><span class="nu0">5</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will fail</span>
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$array2</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">hasKey</span><span class="br0">&#40;</span><span class="nu0">2</span><span class="br0">&#41;</span><span class="co1">//will pass</span>
+            <span class="sy0">-&gt;</span><span class="me1">hasKey</span><span class="br0">&#40;</span><span class="st0">&quot;3&quot;</span><span class="br0">&#41;</span><span class="co1">//will pass</span>
+            <span class="sy0">-&gt;</span><span class="me1">hasKey</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will fail</span></pre>
+</div>
+
+<h3 id="nothaskey">2.7.13 notHasKey</h3>
+
+<p>notHasKey will verify that the given array does not have a given key</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$array</span>  <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">4</span><span class="sy0">,</span> <span class="nu0">6</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$array2</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="st0">&quot;2&quot;</span><span class="sy0">=&gt;</span><span class="nu0">1</span><span class="sy0">,</span> <span class="st0">&quot;3&quot;</span><span class="sy0">=&gt;</span><span class="nu0">2</span><span class="sy0">,</span> <span class="st0">&quot;3&quot;</span><span class="sy0">=&gt;</span><span class="nu0">3</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$array1</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">notHasKey</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="co1">//will fail</span>
+            <span class="sy0">-&gt;</span><span class="me1">notHasKey</span><span class="br0">&#40;</span><span class="nu0">2</span><span class="br0">&#41;</span><span class="co1">//will fail</span>
+            <span class="sy0">-&gt;</span><span class="me1">notHasKey</span><span class="br0">&#40;</span><span class="st_h">'1'</span><span class="br0">&#41;</span><span class="co1">//will fail, keys are &quot;casted&quot;, and $array[1] do exists</span>
+            <span class="sy0">-&gt;</span><span class="me1">notHasKey</span><span class="br0">&#40;</span><span class="nu0">5</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will pass</span>
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$array2</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">notHasKey</span><span class="br0">&#40;</span><span class="nu0">2</span><span class="br0">&#41;</span><span class="co1">//will fail</span>
+            <span class="sy0">-&gt;</span><span class="me1">notHasKey</span><span class="br0">&#40;</span><span class="st0">&quot;3&quot;</span><span class="br0">&#41;</span><span class="co1">//will fail</span>
+            <span class="sy0">-&gt;</span><span class="me1">notHasKey</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will pass</span></pre>
+</div>
+
+<h3 id="haskeys">2.7.14 hasKeys</h3>
+
+<p>hasKeys will verify that the tested array contains all the given keyx (given as an array)</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$array</span>  <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">4</span><span class="sy0">,</span> <span class="nu0">6</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$array2</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="st0">&quot;2&quot;</span><span class="sy0">=&gt;</span><span class="nu0">1</span><span class="sy0">,</span> <span class="st0">&quot;3&quot;</span><span class="sy0">=&gt;</span><span class="nu0">2</span><span class="sy0">,</span> <span class="st0">&quot;4&quot;</span><span class="sy0">=&gt;</span><span class="nu0">3</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$array1</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">hasKeys</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">,</span> <span class="nu0">2</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will pass</span>
+            <span class="sy0">-&gt;</span><span class="me1">hasKeys</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">'0'</span><span class="sy0">,</span> <span class="nu0">2</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will pass</span>
+            <span class="sy0">-&gt;</span><span class="me1">hasKeys</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="st0">&quot;2&quot;</span><span class="sy0">,</span> <span class="nu0">0</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will pass</span>
+            <span class="sy0">-&gt;</span><span class="me1">hasKeys</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">0</span><span class="sy0">,</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will fail, $array[3] does not exists</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$array2</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">hasKeys</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">2</span><span class="sy0">,</span> <span class="st0">&quot;3&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will pass</span>
+            <span class="sy0">-&gt;</span><span class="me1">hasKeys</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="st0">&quot;3&quot;</span><span class="sy0">,</span> <span class="nu0">4</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will pass</span></pre>
+</div>
+
+<h3 id="nothaskeys">2.7.15 notHasKeys</h3>
+
+<p>notHasKeys will verify that the tested array does not contains any of the given keys (given as an array of keys)</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$array</span>  <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">2</span><span class="sy0">,</span> <span class="nu0">4</span><span class="sy0">,</span> <span class="nu0">6</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$array2</span> <span class="sy0">=</span> <span class="kw3">array</span><span class="br0">&#40;</span><span class="st0">&quot;2&quot;</span><span class="sy0">=&gt;</span><span class="nu0">1</span><span class="sy0">,</span> <span class="st0">&quot;3&quot;</span><span class="sy0">=&gt;</span><span class="nu0">2</span><span class="sy0">,</span> <span class="st0">&quot;4&quot;</span><span class="sy0">=&gt;</span><span class="nu0">3</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$array1</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">notHasKeys</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">,</span> <span class="nu0">2</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will fail, all the keys exists in the tested array</span>
+            <span class="sy0">-&gt;</span><span class="me1">notHasKeys</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="st_h">'0'</span><span class="sy0">,</span> <span class="nu0">3</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will fail, $array['0'] exists</span>
+            <span class="sy0">-&gt;</span><span class="me1">notHasKeys</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="st0">&quot;4&quot;</span><span class="sy0">,</span> <span class="nu0">5</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will pass, none of the keys exists in the tested array</span>
+            <span class="sy0">-&gt;</span><span class="me1">notHasKeys</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">3</span><span class="sy0">,</span> <span class="st_h">'two'</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will pass, none of the keys exists in the tested array</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="re0">$array2</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">notHasKeys</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="nu0">2</span><span class="sy0">,</span> <span class="st0">&quot;3&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//will pass</span>
+            <span class="sy0">-&gt;</span><span class="me1">notHasKeys</span><span class="br0">&#40;</span><span class="kw3">array</span><span class="br0">&#40;</span><span class="st0">&quot;3&quot;</span><span class="sy0">,</span> <span class="nu0">4</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will pass</span></pre>
+</div>
+
+<h2 id="sizeof">2.8 sizeOf</h2>
+
+<p>This asserter is dedicated to test the length of an array.</p>
+
+<p>It extends from the integer asserter : You can use every assertions of the integer asserter while testing the size of an array.</p>
+
+<h2 id="object">2.9 object</h2>
+
+<p>This is the asserter dedicated to object testing.</p>
+
+<p>It extends from the variable asserter : You can use every assertions of the variable asserter while testing an object.</p>
+
+<h3 id="isinstanceof">2.9.1 isInstanceOf</h3>
+
+<p>isInstanceOf will tell if the tested object is an instance of a given interface and or a subclass of a given type.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$stdClass</span> <span class="sy0">=</span> <span class="kw2">new</span> stdClass<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">object</span><span class="br0">&#40;</span><span class="re0">$stdClass</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">isInstanceOf</span><span class="br0">&#40;</span><span class="st_h">'\StdClass'</span><span class="br0">&#41;</span><span class="co1">//Will pass</span>
+            <span class="sy0">-&gt;</span><span class="me1">isInstanceOf</span><span class="br0">&#40;</span><span class="st_h">'\Iterator'</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//Will fail</span>
+&nbsp;
+&nbsp;
+<span class="kw2">interface</span> SomeInterface
+<span class="br0">&#123;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> doTest<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">class</span> SomeClass implements SomeInterface
+<span class="br0">&#123;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> doTest <span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>
+        <span class="kw1">echo</span> <span class="st0">&quot;testing atoum is the best thing ever.&quot;</span><span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">class</span> SomeChildClass <span class="kw2">extends</span> SomeClass
+<span class="br0">&#123;</span>
+&nbsp;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re0">$someClass</span> <span class="sy0">=</span> <span class="kw2">new</span> SomeClass<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$someClone</span> <span class="sy0">=</span> clone<span class="br0">&#40;</span><span class="re0">$someClass</span><span class="br0">&#41;</span><span class="sy0">;</span>
+<span class="re0">$someChildClass</span> <span class="sy0">=</span> <span class="kw2">new</span> SomeChildClass<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">object</span><span class="br0">&#40;</span><span class="re0">$someClass</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">isInstanceOf</span><span class="br0">&#40;</span><span class="st_h">'\SomeClass'</span><span class="br0">&#41;</span><span class="co1">//will pass</span>
+            <span class="sy0">-&gt;</span><span class="me1">isInstanceOf</span><span class="br0">&#40;</span><span class="st_h">'\SomeInterface'</span><span class="br0">&#41;</span><span class="co1">//will pass</span>
+            <span class="sy0">-&gt;</span><span class="me1">isInstanceOf</span><span class="br0">&#40;</span><span class="st_h">'\SomeChildClass'</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will fail</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">object</span><span class="br0">&#40;</span><span class="re0">$someClone</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">isInstanceOf</span><span class="br0">&#40;</span><span class="st_h">'\SomeClass'</span><span class="br0">&#41;</span><span class="co1">//will pass</span>
+            <span class="sy0">-&gt;</span><span class="me1">isInstanceOf</span><span class="br0">&#40;</span><span class="st_h">'\SomeInterface'</span><span class="br0">&#41;</span><span class="co1">//will pass</span>
+            <span class="sy0">-&gt;</span><span class="me1">isInstanceOf</span><span class="br0">&#40;</span><span class="st_h">'\SomeChildClass'</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will fail</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">object</span><span class="br0">&#40;</span><span class="re0">$someChildClass</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">isInstanceOf</span><span class="br0">&#40;</span><span class="st_h">'\SomeClass'</span><span class="br0">&#41;</span><span class="co1">//will pass, inheritance</span>
+            <span class="sy0">-&gt;</span><span class="me1">isInstanceOf</span><span class="br0">&#40;</span><span class="st_h">'\SomeInterface'</span><span class="br0">&#41;</span><span class="co1">//will pass, inheritance of interfaces</span>
+            <span class="sy0">-&gt;</span><span class="me1">isInstanceOf</span><span class="br0">&#40;</span><span class="st_h">'\SomeChildClass'</span><span class="br0">&#41;</span><span class="sy0">;</span><span class="co1">//will pass</span></pre>
+</div>
+
+<h3 id="hassize-3">2.9.2 hasSize</h3>
+
+<p>hasSize will check the size of an object. This assertion have sense mainly if your object implements the Countable
+interface.</p>
+
+<h3 id="isempty-4">2.9.3 isEmpty</h3>
+
+<h2 id="phpclass-class">2.10 phpClass / class</h2>
+
+<p>This is the asserter dedicated to class definition testing.</p>
+
+<h3 id="hasparent">2.10.1 hasParent</h3>
+
+<h3 id="hasnoparent">2.10.2 hasNoParent</h3>
+
+<h3 id="issubclassof">2.10.3 isSubclassOf</h3>
+
+<h3 id="hasinterface">2.10.4 hasInterface</h3>
+
+<h3 id="isabstract">2.10.5 isAbstract</h3>
+
+<h3 id="hasmethod">2.10.6 hasMethod</h3>
+
+<h2 id="testedclass">2.11 testedClass</h2>
+
+<p>This is the asserter dedicated to the tested class definition testing.</p>
+
+<p>It extends the phpClass (class) asserter : You can use every assertions of the phpClass asserter while testing the tested class.</p>
+
+<h2 id="hash">2.12 hash</h2>
+
+<p>This is the asserter dedicated to the validation of hashing function results.</p>
+
+<p>It extends the string asserters : You can use every asertions of the string asserter while testing a hash.</p>
+
+<h3 id="issha1">2.12.1 isSha1</h3>
+
+<p>isSha1 verify that the given hash <em>could be</em> the result of a sha1 hash.</p>
+
+<h3 id="issha256">2.12.2 isSha256</h3>
+
+<p>isSha256 verify that the given hash <em>could be</em> the result of a sha256 hash.</p>
+
+<h3 id="issha512">2.12.3 isSha512</h3>
+
+<p>isSha256 verify that the given hash <em>could be</em> the result of a sha512 hash.</p>
+
+<h3 id="ismd5">2.12.4 isMd5</h3>
+
+<p>md5 verify that the given hash <em>could be</em> the result of a md5 hash.</p>
+
+<h2 id="error">2.13 error</h2>
+
+<p>This asserter is dedicated to error testing.</p>
+
+<h3 id="exists">2.13.1 exists</h3>
+
+<h3 id="notexists">2.13.2 notExists</h3>
+
+<h3 id="withtype">2.13.3 withType</h3>
+
+<h3 id="withanytype">2.13.4 withAnyType</h3>
+
+<h3 id="withmessage">2.13.5 withMessage</h3>
+
+<h3 id="withanymessage">2.13.6 withAnyMessage</h3>
+
+<h3 id="withpattern">2.13.7 withPattern</h3>
+
+<h2 id="exception">2.14 exception</h2>
+
+<p>This is the asserter dedicated to exception testing.</p>
+
+<p>It extends from the object asserter : You can use every assertions of the object asserter while testing exceptions.</p>
+
+<p>atoum takes part of closures to test exceptions.</p>
+
+<div class="code php">
+<pre class="php"><span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">exception</span><span class="br0">&#40;</span><span class="kw2">function</span> <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <span class="co1">//this code will raise an exception</span>
+            <span class="kw1">throw</span> <span class="kw2">new</span> Exception<span class="br0">&#40;</span><span class="st_h">'This is an exception'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span><span class="br0">&#41;</span></pre>
+</div>
+
+<h3 id="hasdefaultcode">2.14.1 hasDefaultCode</h3>
+
+<h3 id="hascode">2.14.2 hasCode</h3>
+
+<h3 id="hasmessage">2.14.3 hasMessage</h3>
+
+<h3 id="hasnestedexception">2.14.4 hasNestedException</h3>
+
+<h2 id="mock">2.15 mock</h2>
+
+<p>This is the asserter dedicated to test your code using mock objects.</p>
+
+
+</div>
+
+</div></body>
+</html>
