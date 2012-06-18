@@ -3,7 +3,7 @@
 <head>
     <meta http-equiv="Content-type" content="text/html; charset=utf-8">
     <meta name="author" content="Change this: Author Name" />
-    <meta name="date" content="03/15/2012"/>
+    <meta name="date" content="06/18/2012"/>
     <meta name="generator" content="easybook 4.2"/>
 
     <title>atoum Documentation</title>
@@ -427,6 +427,68 @@ Generating a Mock from an interface</p>
 <span class="br0">&#125;</span></pre>
 </div>
 
+<p>There is also a shorter syntax to generate mock from a class definition.</p>
+
+<div class="code php">
+<pre class="php"><span class="kw2">public</span> <span class="kw2">function</span> testWithMockedObject <span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="re0">$mockWriter</span> <span class="sy0">=</span> <span class="kw2">new</span> \mock\Writer<span class="sy0">;</span>
+&nbsp;
+    <span class="co1">//...</span>
+<span class="br0">&#125;</span></pre>
+</div>
+
+<p>atoum is able to automatically find the class definition to mock on demand so you don't have to call the mock generator.</p>
+
+<p>When requesting a mock instance for a class, do not forget to specify the full class path (including namespaces).</p>
+
+<div class="code php">
+<pre class="php"><span class="kw2">namespace</span> Package\Writers
+<span class="br0">&#123;</span>
+    <span class="kw2">class</span> SampleWriter implements Writer
+    <span class="br0">&#123;</span>
+        <span class="co1">//...</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">namespace</span>
+<span class="br0">&#123;</span>
+    <span class="kw2">class</span> UsingWriter 
+    <span class="br0">&#123;</span>
+        <span class="kw2">public</span> <span class="kw2">function</span> write<span class="br0">&#40;</span>\Package\Writers\Writer <span class="re0">$writer</span><span class="sy0">,</span> <span class="re0">$string</span><span class="br0">&#41;</span> 
+        <span class="br0">&#123;</span>
+            <span class="re0">$writer</span><span class="sy0">-&gt;</span><span class="me1">write</span><span class="br0">&#40;</span><span class="re0">$string</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+
+<p>In this example, the class we want to mock lives in the Package\Writers namespace, so to request a mock in our test we should do :</p>
+
+<div class="code php">
+<pre class="php"><span class="kw2">namespace</span> Package\test\units<span class="sy0">;</span>
+&nbsp;
+<span class="kw2">class</span> UsingWriter <span class="kw2">extends</span> atoum\test
+<span class="br0">&#123;</span>
+    <span class="kw2">public</span> <span class="kw2">function</span> testWrite<span class="br0">&#40;</span><span class="br0">&#41;</span>
+    <span class="br0">&#123;</span>                     
+        <span class="re0">$this</span>
+            <span class="sy0">-&gt;</span><span class="kw1">if</span><span class="br0">&#40;</span><span class="re0">$mockWriter</span> <span class="sy0">=</span> <span class="kw2">new</span> \mock\Package\Writers\SampleWriter<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">then</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+                <span class="sy0">-&gt;</span><span class="me1">when</span><span class="br0">&#40;</span><span class="kw2">function</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">use</span><span class="br0">&#40;</span><span class="re0">$mockWriter</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                    <span class="re0">$usingWriter</span> <span class="sy0">=</span> <span class="kw2">new</span> \UsingWriter<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
+                    <span class="re0">$usingWriter</span><span class="sy0">-&gt;</span><span class="me1">write</span><span class="br0">&#40;</span><span class="re0">$mockWriter</span><span class="sy0">,</span> <span class="st_h">'Hello World!'</span><span class="br0">&#41;</span><span class="sy0">;</span>  
+                <span class="br0">&#125;</span><span class="br0">&#41;</span>   
+                <span class="sy0">-&gt;</span><span class="me1">mock</span><span class="br0">&#40;</span><span class="re0">$mockWriter</span><span class="br0">&#41;</span>
+                    <span class="sy0">-&gt;</span><span class="me1">call</span><span class="br0">&#40;</span><span class="st_h">'write'</span><span class="br0">&#41;</span>
+                    <span class="sy0">-&gt;</span><span class="me1">withArguments</span><span class="br0">&#40;</span><span class="st_h">'Hello World!'</span><span class="br0">&#41;</span>
+                    <span class="sy0">-&gt;</span><span class="me1">once</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+        <span class="sy0">;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre>
+</div>
+
 <h3 id="generating-a-mock-from-scratch">1.2.9 Generating a Mock from scratch</h3>
 
 <p>atoum can also let you create and completely specify a mock object.</p>
@@ -437,17 +499,16 @@ Generating a Mock from an interface</p>
 <span class="re0">$mockWriter</span><span class="sy0">-&gt;</span><span class="me1">getMockController</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">-&gt;</span><span class="me1">write</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span><span class="re0">$text</span><span class="br0">&#41;</span><span class="br0">&#123;</span><span class="br0">&#125;</span><span class="sy0">;</span>
 &nbsp;
 <span class="re0">$usingWriter</span> <span class="sy0">=</span> <span class="kw2">new</span> \UsingWriter<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span>
-<span class="re0">$usingWriter</span><span class="sy0">-&gt;</span><span class="me1">setFreeWriter</span><span class="br0">&#40;</span><span class="re0">$mockWriter</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
+<span class="re0">$usingWriter</span><span class="sy0">-&gt;</span><span class="me1">setFreeWriter</span><span class="br0">&#40;</span><span class="re0">$mockWriter</span><span class="br0">&#41;</span><span class="sy0">;</span>
+&nbsp;
+<span class="re0">$this</span><span class="sy0">-&gt;</span><span class="kw3">assert</span>
+        <span class="sy0">-&gt;</span><span class="me1">when</span><span class="br0">&#40;</span><span class="kw2">function</span> <span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="kw2">use</span><span class="br0">&#40;</span><span class="re0">$usingWriter</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                        <span class="re0">$usingWriter</span><span class="sy0">-&gt;</span><span class="me1">write</span><span class="br0">&#40;</span><span class="st_h">'hello'</span><span class="br0">&#41;</span><span class="sy0">;</span>
+        <span class="br0">&#125;</span><span class="br0">&#41;</span>
+        <span class="sy0">-&gt;</span><span class="me1">mock</span><span class="br0">&#40;</span><span class="re0">$mockWriter</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">call</span><span class="br0">&#40;</span><span class="st_h">'write'</span><span class="br0">&#41;</span>
+            <span class="sy0">-&gt;</span><span class="me1">once</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">;</span></pre>
 </div>
-
-<pre><code>$this-&gt;assert
-        -&gt;when(function () use($usingWriter) {
-                        $usingWriter-&gt;write('hello');
-        })
-        -&gt;mock($mockWriter)
-            -&gt;call('write')
-            -&gt;once();
-</code></pre>
 
 
 </div>
