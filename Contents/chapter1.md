@@ -322,6 +322,65 @@ atoum can generate a mock directly from a class definition.
                     ->once();
     }
 
+There is also a shorter syntax to generate mock from a class definition.
+
+    [php]
+    public function testWithMockedObject ()
+    {
+        $mockWriter = new \mock\Writer;
+
+        //...
+    }
+
+atoum is able to automatically find the class definition to mock on demand so you don't have to call the mock generator.
+
+When requesting a mock instance for a class, do not forget to specify the full class path (including namespaces).
+
+    [php]
+    namespace Package\Writers
+    {
+        class SampleWriter implements Writer
+        {
+            //...
+        }
+
+    }
+
+    namespace
+    {
+        class UsingWriter 
+        {
+            public function write(\Package\Writers\Writer $writer, $string) 
+            {
+                $writer->write($string);
+            }
+        }
+    }
+
+In this example, the class we want to mock lives in the Package\Writers namespace, so to request a mock in our test we should do :
+
+    [php]
+    namespace Package\test\units;
+
+    class UsingWriter extends atoum\test
+    {
+        public function testWrite()
+        {                     
+            $this
+                ->if($mockWriter = new \mock\Package\Writers\SampleWriter())
+                ->then()
+                    ->when(function() use($mockWriter) {
+                        $usingWriter = new \UsingWriter();
+                        $usingWriter->write($mockWriter, 'Hello World!');  
+                    })	
+                    ->mock($mockWriter)
+                        ->call('write')
+                        ->withArguments('Hello World!')
+                        ->once()
+            ;
+        }
+    }
+
 ### Generating a Mock from scratch ###
 
 atoum can also let you create and completely specify a mock object.
