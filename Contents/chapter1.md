@@ -11,11 +11,43 @@ atoum distinguished itself as :
 
 For now, atoum is not tagged with a version number. If you want to use atoum, just download the last stable version. atoum aims to provide backward compatibility anyway.
 
+You can install atoum by 3 ways :
+*   As a PHAR archive
+*   Using composer
+*   Cloning github repository
+
+### PHAR
+
 atoum is distributed as a PHAR archive, an archive format dedicated to PHP, available since PHP 5,3.
 
 You can download the last stable version of atoum directly from the official website here : http://downloads.atoum.org/nightly/mageekguy.atoum.phar
 
-If you want to use atoum directly from it's sources, you can clone it's git repository on github : git://github.com/mageekguy/atoum.git
+### Composer
+
+[Composer](http://getcomposer.org/) is a tool for dependancy management in PHP.
+
+To install atoum throught composer, you must install composer
+
+    [shell]
+    curl -s https://getcomposer.org/installer | php
+
+Then, create a file named composer.json who contains 
+
+    [json]
+    {
+        "require"; {
+            "mageekguy/atoum": "dev-master"
+        }
+    }
+
+And finally execute 
+
+    [shell]
+    php composer.phar install
+
+### Github
+
+If you want to use atoum directly from it's sources, you can clone or fork it's git repository on github : git://github.com/mageekguy/atoum.git
 
 ## A quick overview of atoum's philosophy ##
 
